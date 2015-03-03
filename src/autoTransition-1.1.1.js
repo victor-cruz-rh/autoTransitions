@@ -1,5 +1,5 @@
 /**
- * autoTransition-1.1.0.js
+ * autoTransition-1.1.1.js
  *
  * A JavaScript/CSS3 microlibrary for animating elements.
  *
@@ -37,26 +37,28 @@ var autoTransition = new function () {
       var animation;
       var froms = [];
 
-      for (var j = 0; j < animations.length; j++) {
-        animation = animations[j];
-        transitions[transitions.length] =
-          animation.property + ' ' +
-          animation.duration + 'ms ' +
-          animation.timmingFunction + ' ' +
-          animation.delay + 'ms';
-        froms[froms.length] = animation.element['style'][animation.property];
-        animation.element['style'][animation.property] = animation.to;
-      }
-      animation.element.setAttribute('data-aT-from', froms.join(','));
-      animation.element.style[prefix+'transition'] = transitions.join(',');
+      if(animations.length!=0 && animations[0].from==null){
+        for (var j = 0; j < animations.length; j++) {
+          animation = animations[j];
+          transitions[transitions.length] =
+            animation.property + ' ' +
+            animation.duration + 'ms ' +
+            animation.timmingFunction + ' ' +
+            animation.delay + 'ms';
+          froms[froms.length] = animation.element['style'][animation.property];
+          animation.element['style'][animation.property] = animation.to;
+        }
+        animation.element.setAttribute('data-aT-from', froms.join(','));
+        animation.element.style[prefix+'transition'] = transitions.join(',');
 
-      if (animation.onStart) {
-        var onStart = window[animation.onStart];
-        onStart();
-      }
+        if (animation.onStart) {
+          var onStart = window[animation.onStart];
+          onStart();
+        }
 
-      if (animation.onEnd) {
-        animation.element.addEventListener('webkitTransitionEnd', window[animation.onEnd], false);
+        if (animation.onEnd) {
+          animation.element.addEventListener('webkitTransitionEnd', window[animation.onEnd], false);
+        }
       }
     }
   };
@@ -68,11 +70,14 @@ var autoTransition = new function () {
       var animations = getAnimations(elements[i]);
       var animation;
 
-      for (var j = 0; j < animations.length; j++) {
-        animation = animations[j];
-        animation.element['style'][animation.property] = animation.from;
+      if(animations.length!=0 && animations[0].from!=null){
+        for (var j = 0; j < animations.length; j++) {
+          animation = animations[j];
+          animation.element['style'][animation.property] = animation.from;
+        }
+        animation.element.removeAttribute('data-aT-from');
+        animation.element.style[prefix+'transition'] = '';
       }
-      animation.element.style[prefix+'transition'] = '';
     }
   };
 
@@ -88,7 +93,7 @@ var autoTransition = new function () {
 
   function getAnimations(element) {
     var elementsAttributes = [];
-    var properties = extractAttributes(element, 'data-aT-property');
+    var properties = extractAttributes(element, 'data-aT-property') || [];
     var tos = extractAttributes(element, 'data-aT-to');
     var froms = extractAttributes(element, 'data-aT-from');
     var delays = extractAttributes(element, 'data-aT-delay');
@@ -102,7 +107,7 @@ var autoTransition = new function () {
         element: element,
         property: properties[i],
         from: froms ? froms[i] : null,
-        to: tos[i],
+        to: tos ? tos[i] : 0,
         delay: delays ? delays[i] : 0,
         duration: durations ? durations[i] : 300,
         onEnd: onEnds ? onEnds[i] : null,
@@ -110,6 +115,7 @@ var autoTransition = new function () {
         timmingFunction: timmingFunctions ? timmingFunctions[i] : 'ease'
       }
     }
+
     return elementsAttributes;
   }
 

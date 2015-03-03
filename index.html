@@ -6,7 +6,9 @@
 </head>
 <body>
 
-<h2>Demo autoTransition</h2>
+<h2>Demo autoTransition |
+  <a href="#" onclick="autoTransition.animate('.autoTransition');">Trigger</a> |
+  <a href="#" onclick="autoTransition.reset('.autoTransition');">Reset</a></h2>
 
 <h3>auto width</h3>
 <div style="background-color: red; width:0; height: 100px"
@@ -67,7 +69,18 @@
   }
 </script>
 
-<script src="./src/autoTransition-1.1.0.js" type="text/javascript" charset="utf-8"></script>
+<h3>no animations</h3>
+<div style="background-color: lightblue; width:100px; height: 100px"
+     class="autoTransition">
+     </div>
+
+<h3>animation without to</h3>
+<div style="background-color: slateblue; width:100px; height: 100px"
+     class="autoTransition"
+     data-aT-property="width">
+     </div>
+
+<script src="./src/autoTransition-1.1.1.js" type="text/javascript" charset="utf-8"></script>
 
 </body>
 </html>
