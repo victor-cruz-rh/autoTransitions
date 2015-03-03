@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>autoTransition example</title>
+</head>
+<body>
+
+<h2>Demo autoTransition</h2>
+
+<h3>auto width</h3>
+<div style="background-color: red; width:0; height: 100px"
+     class="autoTransition"
+     data-aT-property="width"
+     data-aT-to="100px">
+     </div>
+
+<h3>auto opacity</h3>
+<div style="background-color: cadetblue; opacity: 0; width:100px; height: 100px"
+     class="autoTransition"
+     data-aT-property="opacity"
+     data-aT-to="1"
+     data-aT-duration="2000">
+     </div>
+
+<h3>auto delayed height</h3>
+<div style="position: relative; height: 100px">
+  <div style="background-color: green; width:100px; height: 0; position: absolute; bottom: 0"
+       class="autoTransition"
+       data-aT-property="height"
+       data-aT-to="100px"
+       data-aT-duration="2000"
+       data-aT-delay="2000">
+       </div>
+</div>
+
+<h3>auto multi animations</h3>
+<div style="height: 100px">
+  <div style="background-color: indianred; width:0; height: 0"
+       class="autoTransition"
+       data-aT-property="width,height"
+       data-aT-to="100px,100px"
+       data-aT-duration="2000,2000">
+       </div>
+</div>
+
+<h3>manual triggered with callback (all properties)</h3>
+<div style="background-color: yellowgreen; width:100px; height: 0"
+     class="autoTransitionOnClick"
+     data-aT-property="height"
+     data-aT-to="100px"
+     data-aT-duration="1000"
+     data-aT-timing-function="linear"
+     data-aT-onStart="transitionStart"
+     data-aT-onEnd="transitionEnd">
+     </div>
+<br />
+
+<button onclick="autoTransition.animate('autoTransitionOnClick');" id="animationButton">Click me!</button>
+
+<script type="application/javascript">
+  function transitionStart(){
+    document.getElementById('animationButton').disabled = true;
+  }
+  function transitionEnd(){
+    alert('Transition finished!');
+  }
+</script>
+
+<script src="./src/autoTransition-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+
+</body>
+</html>
