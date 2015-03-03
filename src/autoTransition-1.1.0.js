@@ -93,9 +93,9 @@ var autoTransition = new function () {
     var froms = extractAttributes(element, 'data-aT-from');
     var delays = extractAttributes(element, 'data-aT-delay');
     var durations = extractAttributes(element, 'data-aT-duration');
+    var timmingFunctions = extractAttributes(element, 'data-aT-timing-function');
     var onEnds = extractAttributes(element, 'data-aT-onEnd');
     var onStarts = extractAttributes(element, 'data-aT-onStart');
-    var timmingFunctions = extractAttributes(element, 'data-aT-timmingFunction');
 
     for (var i = 0; i < properties.length; i++) {
       elementsAttributes[elementsAttributes.length] = {
