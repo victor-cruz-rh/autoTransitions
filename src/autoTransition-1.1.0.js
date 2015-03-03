@@ -1,5 +1,5 @@
 /**
- * autoTransition-1.0.0.js
+ * autoTransition-1.1.0.js
  *
  * A JavaScript/CSS3 microlibrary for animating elements.
  *
@@ -82,7 +82,7 @@ var autoTransition = new function () {
   }
 
   function setElements(className) {
-    window['elements-' + className] = document.getElementsByClassName(className);
+    window['elements-' + className] = document.querySelectorAll(className);
     return getElements(className);
   }
 
@@ -119,4 +119,4 @@ var autoTransition = new function () {
   }
 };
 
-autoTransition.animate('autoTransition');
+autoTransition.animate('.autoTransition');
