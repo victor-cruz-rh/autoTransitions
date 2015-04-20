@@ -109,8 +109,8 @@ var autoTransition = new function () {
         property: properties[i],
         from: froms ? froms[i] : null,
         to: tos ? parseTo(tos[i], properties[i]) : 0,
-        delay: delays ? parseTime(delays[i]) : 0,
-        duration: durations ? parseTime(durations[i]) : 300,
+        delay: parseTime(delays ? delays[i] : '0'),
+        duration: parseTime(durations ? durations[i] : '300'),
         onEnd: onEnds ? onEnds[i] : null,
         onStart: onStarts ? onStarts[i] : null,
         timmingFunction: timmingFunctions ? timmingFunctions[i] : 'ease'
